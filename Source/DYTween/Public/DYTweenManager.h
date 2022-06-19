@@ -46,6 +46,8 @@ public:
 		
 	UFUNCTION(BlueprintCallable, Category = "DYTween")
 	void AbortWithoutEndCallback();
+	
+	static void SafeAbort(UDYTweener*& tweener, bool withEndCallback = true);
 
 	UFUNCTION(BlueprintCallable, Category = "DYTween")
 	UDYTweener* SetDuration(float duration) { Duration = duration; return this; }
@@ -131,8 +133,6 @@ public:
 	UDYTweener* Tween(FTweenUpdateDelegate const& updateDelegate);
 
 	UDYTweener* Tween(TFunction<void(float)>&& updateCallback);
-
-	void SafeAbort(UDYTweener*& tweener, bool withEndCallback = true);
 
 	void Clear();
 

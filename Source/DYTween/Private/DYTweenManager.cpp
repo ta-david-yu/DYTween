@@ -117,6 +117,23 @@ void UDYTweener::AbortWithoutEndCallback()
 	IsActive = false;
 }
 
+void UDYTweener::SafeAbort(UDYTweener*& tweener, bool withEndCallback)
+{
+	if (tweener != nullptr)
+	{
+		if (withEndCallback)
+		{
+			tweener->AbortWithEndCallback();
+		}
+		else
+		{
+			tweener->AbortWithoutEndCallback();
+		}
+	}
+
+	tweener = nullptr;
+}
+
 void DYTweenManager::Update(float deltaTime)
 {
 	for (auto& tweener : m_Tweeners)
@@ -156,23 +173,6 @@ UDYTweener* DYTweenManager::Tween(TFunction<void(float)>&& updateCallback)
 	UDYTweener* tweener = getInactiveTweener();
 	tweener->InitForUse(MoveTemp(updateCallback));
 	return tweener;
-}
-
-void DYTweenManager::SafeAbort(UDYTweener*& tweener, bool withEndCallback)
-{
-	if (tweener != nullptr)
-	{
-		if (withEndCallback)
-		{
-			tweener->AbortWithEndCallback();
-		}
-		else
-		{
-			tweener->AbortWithoutEndCallback();
-		}
-	}
-
-	tweener = nullptr;
 }
 
 void DYTweenManager::Clear()
