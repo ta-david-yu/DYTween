@@ -121,6 +121,11 @@ void DYTweenManager::Update(float deltaTime)
 {
 	for (auto& tweener : m_Tweeners)
 	{
+		if (!tweener)
+		{
+			continue;
+		}
+
 		if (!tweener->IsActive)
 		{
 			continue;
