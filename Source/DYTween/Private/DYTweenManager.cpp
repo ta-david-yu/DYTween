@@ -119,8 +119,10 @@ void UDYTweener::AbortWithoutEndCallback()
 
 void DYTweenManager::Update(float deltaTime)
 {
-	for (auto& tweener : m_Tweeners)
+	for (int i = 0; i < m_Tweeners.Num(); i++)
 	{
+		UDYTweener* tweener = m_Tweeners[i];
+
 		if (!tweener)
 		{
 			continue;
